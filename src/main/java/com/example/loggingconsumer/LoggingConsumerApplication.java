@@ -1,6 +1,6 @@
 package com.example.loggingconsumer;
 
-import java.util.function.Consumer;
+import java.util.function.Function;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,23 +13,11 @@ public class LoggingConsumerApplication {
 		SpringApplication.run(LoggingConsumerApplication.class, args);
 	}
 
-	@Bean
-	public Consumer<Person> log() {
-	    return person -> {
-	        System.out.println("Received: " + person);
+    @Bean
+	public Function<String, String> uppercase() {
+	    return value -> {
+	        System.out.println("Received: " + value);
+	        return value.toUpperCase();
 	    };
-	}
-
-	public static class Person {
-		private String name;
-		public String getName() {
-			return name;
-		}
-		public void setName(String name) {
-			this.name = name;
-		}
-		public String toString() {
-			return this.name;
-		}
 	}
 }
